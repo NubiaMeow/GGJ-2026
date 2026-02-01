@@ -1,70 +1,72 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(Rigidbody))]
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
     float m_moveSpeed;
     [SerializeField]
     float m_jumpForce;
-    [SerializeField]
-    Animator m_animator;
 
-    Vector3 m_velocity;
-    bool m_grounded = true;
-    const float mk_gravity = 9.83f;
+    Rigidbody m_rigidbody;
+    SpriteRenderer m_sprite;
+    Animator m_animator;
+    Vector2 m_inputDelta;
+    int m_floorCount = 0;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        m_rigidbody = GetComponent<Rigidbody>();
+        m_sprite = GetComponentInChildren<SpriteRenderer>();
+        m_animator = GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        float deltaTime = Time.deltaTime;
-
-        Vector3 position = transform.position;
-        position += m_velocity * deltaTime;
-
-        if (!m_grounded)
-        {
-            m_velocity.y -= mk_gravity * deltaTime;
-
-            if (position.y <= 0.0f)
-            {
-                position.y = 0.0f;
-                m_velocity.y = 0.0f;
-                m_grounded = true;
-            }
-
-            m_animator.SetBool("isFalling", m_velocity.y < 0);
-        }
-
-        transform.position = position;
-
-        m_animator.SetBool("isGrounded", m_grounded);
+        Vector3 velocity = m_rigidbody.linearVelocity;
+        velocity.x = m_inputDelta.x;
+        velocity.z = m_inputDelta.y;
+        m_rigidbody.linearVelocity = velocity;
+        m_animator.SetBool("isFalling", velocity.y < -0.01f);
     }
 
     public void OnMove(InputValue input)
     {
-        Vector2 delta = m_moveSpeed  * input.Get<Vector2>();
-        m_velocity.x = delta.x;
-        m_velocity.z = delta.y;
-        float speed = delta.magnitude;
-        m_animator.SetBool("isWalking", speed > 0);
-        m_animator.SetBool("isWalkingAway", delta.normalized.y > 0.5);
-        m_animator.SetFloat("moveSpeed", speed / 5);
+        Vector2 inputVector = input.Get<Vector2>();
+        m_inputDelta = inputVector * m_moveSpeed;
+        m_animator.SetBool("isWalking", inputVector.sqrMagnitude > 0);
+        m_animator.SetBool("isWalkingAway", inputVector.normalized.y > 0.5f);
+        m_animator.SetFloat("moveSpeed", inputVector.magnitude);
+        if (inputVector.x == 0.0f)
+        {
+            return;
+        }
+        m_sprite.flipX = inputVector.x < 0.0f;
     }
 
     public void OnJump()
     {
-        if (!m_grounded)
+        m_rigidbody.AddForce(Vector3.up * m_jumpForce, ForceMode.Impulse);
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.CompareTag("Floor"))
         {
-            return;
+            m_floorCount++;
+            m_animator.SetBool("isGrounded", true);
         }
-        m_velocity.y = m_jumpForce;
-        m_grounded = false;
+    }
+
+    void OnCollisionExit(Collision collision)
+    {
+        if (collision.collider.CompareTag("Floor"))
+        {
+            m_floorCount--;
+            m_animator.SetBool("isGrounded", m_floorCount > 0);
+        }
     }
 }
