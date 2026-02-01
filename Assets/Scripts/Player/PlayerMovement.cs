@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
     Animator m_animator;
     Vector2 m_inputDelta;
     int m_floorCount = 0;
+    bool m_isDead = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -27,7 +28,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (m_animator.GetBool("isGrowing"))
+        if (m_animator.GetBool("isGrowing") || m_isDead)
         {
             return;
         }
@@ -40,7 +41,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnMove(InputValue input)
     {
-        if (m_animator.GetBool("isGrowing"))
+        if (m_animator.GetBool("isGrowing") || m_isDead)
         {
             return;
         }
@@ -58,7 +59,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnJump()
     {
-        if (m_animator.GetBool("isGrowing"))
+        if (m_animator.GetBool("isGrowing") || m_isDead)
         {
             return;
         }
@@ -71,7 +72,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnAttack()
     {
-        if (m_animator.GetBool("isGrowing"))
+        if (m_animator.GetBool("isGrowing") || m_isDead)
         {
             return;
         }
@@ -102,6 +103,11 @@ public class PlayerMovement : MonoBehaviour
             m_animator.SetBool("hasMask", true);
             m_rigidbody.linearVelocity = Vector3.zero;
             Destroy(collision.gameObject);
+        }
+        else if (collision.collider.CompareTag("EnemyFist"))
+        {
+            m_isDead = true;
+            m_rigidbody.constraints = RigidbodyConstraints.None;
         }
     }
 
