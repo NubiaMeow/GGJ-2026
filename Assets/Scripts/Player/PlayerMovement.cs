@@ -98,13 +98,10 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (collision.collider.CompareTag("PlayerMask"))
         {
-            if (m_animator.GetBool("hasMask"))
-            {
-                return;
-            }
             m_animator.SetBool("isGrowing", true);
             m_animator.SetBool("hasMask", true);
             m_rigidbody.linearVelocity = Vector3.zero;
+            Destroy(collision.gameObject);
         }
     }
 
