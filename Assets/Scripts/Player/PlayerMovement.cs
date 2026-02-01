@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerMovement : MonoBehaviour
@@ -26,6 +27,10 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (m_animator.GetBool("isGrowing"))
+        {
+            return;
+        }
         Vector3 velocity = m_rigidbody.linearVelocity;
         velocity.x = m_inputDelta.x;
         velocity.z = m_inputDelta.y;
@@ -35,6 +40,10 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnMove(InputValue input)
     {
+        if (m_animator.GetBool("isGrowing"))
+        {
+            return;
+        }
         Vector2 inputVector = input.Get<Vector2>();
         m_inputDelta = inputVector * m_moveSpeed;
         m_animator.SetBool("isWalking", inputVector.sqrMagnitude > 0);
@@ -49,6 +58,10 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnJump()
     {
+        if (m_animator.GetBool("isGrowing"))
+        {
+            return;
+        }
         if (!m_animator.GetBool("isGrounded"))
         {
             return;
@@ -58,6 +71,10 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnAttack()
     {
+        if (m_animator.GetBool("isGrowing"))
+        {
+            return;
+        }
         m_animator.SetBool("isAttacking", true);
     }
 
@@ -66,12 +83,28 @@ public class PlayerMovement : MonoBehaviour
         m_animator.SetBool("isAttacking", false);
     }
 
+    public void OnGrowEnd()
+    {
+        m_animator.SetBool("isGrowing", false);
+        m_animator.SetBool("hasMask", true);
+    }
+
     void OnCollisionEnter(Collision collision)
     {
         if (collision.collider.CompareTag("Floor"))
         {
             m_floorCount++;
             m_animator.SetBool("isGrounded", true);
+        }
+        else if (collision.collider.CompareTag("PlayerMask"))
+        {
+            if (m_animator.GetBool("hasMask"))
+            {
+                return;
+            }
+            m_animator.SetBool("isGrowing", true);
+            m_animator.SetBool("hasMask", true);
+            m_rigidbody.linearVelocity = Vector3.zero;
         }
     }
 

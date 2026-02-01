@@ -585,6 +585,10 @@ PrefabInstance:
       propertyPath: m_UseGeometry
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5921525348207646226, guid: e3cc36180cc70ae4e95776f0b26d9e1c, type: 3}
+      propertyPath: m_TagString
+      value: PlayerMask
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -638,10 +642,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3056133431667962153, guid: ed57b0e74d764ee4abdd4ee79a0b0f3c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4257341476837755052, guid: ed57b0e74d764ee4abdd4ee79a0b0f3c, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 1392543379, guid: c3ca00089a8809a4686e1bebaf55dd56, type: 3}
+    - target: {fileID: 4257341476837755052, guid: ed57b0e74d764ee4abdd4ee79a0b0f3c, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5868807108993681875, guid: ed57b0e74d764ee4abdd4ee79a0b0f3c, type: 3}
       propertyPath: m_Name
       value: Player

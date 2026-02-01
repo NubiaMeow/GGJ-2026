@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class PlayerAnimationEvents : MonoBehaviour
 {
@@ -12,5 +13,10 @@ public class PlayerAnimationEvents : MonoBehaviour
     public void ResetAttack()
     {
         m_playerMovement.OnAttackEnd();
+    }
+
+    public void EndGrow()
+    {
+        m_playerMovement.OnGrowEnd();
     }
 }
