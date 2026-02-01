@@ -44,11 +44,15 @@ public class PlayerMovement : MonoBehaviour
         {
             return;
         }
-        m_sprite.flipX = inputVector.x < 0.0f;
+        m_sprite.flipX = inputVector.x > 0.0f;
     }
 
     public void OnJump()
     {
+        if (!m_animator.GetBool("isGrounded"))
+        {
+            return;
+        }
         m_rigidbody.AddForce(Vector3.up * m_jumpForce, ForceMode.Impulse);
     }
 
