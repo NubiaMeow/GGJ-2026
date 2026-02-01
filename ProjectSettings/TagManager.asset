@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Floor
   - PlayerMask
+  - EnemyFist
   layers:
   - Default
   - TransparentFX
