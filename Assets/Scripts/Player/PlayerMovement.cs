@@ -52,6 +52,16 @@ public class PlayerMovement : MonoBehaviour
         m_rigidbody.AddForce(Vector3.up * m_jumpForce, ForceMode.Impulse);
     }
 
+    public void OnAttack()
+    {
+        m_animator.SetBool("isAttacking", true);
+    }
+
+    public void OnAttackEnd()
+    {
+        m_animator.SetBool("isAttacking", false);
+    }
+
     void OnCollisionEnter(Collision collision)
     {
         if (collision.collider.CompareTag("Floor"))

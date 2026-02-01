@@ -478,6 +478,44 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &946089570 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5422784850909841755, guid: ed57b0e74d764ee4abdd4ee79a0b0f3c, type: 3}
+  m_PrefabInstance: {fileID: 9065217557103210902}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &946089572
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 946089570}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.4, y: 0.4, z: 0.2}
+  m_Center: {x: 0.8, y: -0.4, z: 0}
+--- !u!114 &946089575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 946089570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36a79e57fb33c5449b0700fa86b1589c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimationEvents
 --- !u!4 &1060195914 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2837979637327203274, guid: ed57b0e74d764ee4abdd4ee79a0b0f3c, type: 3}
@@ -539,6 +577,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Level01
       objectReference: {fileID: 0}
+    - target: {fileID: 5235226283466116015, guid: e3cc36180cc70ae4e95776f0b26d9e1c, type: 3}
+      propertyPath: m_NavMeshData
+      value: 
+      objectReference: {fileID: 23800000, guid: 2346be1ad01ac4847af9c3a0e8f13bb4, type: 2}
+    - target: {fileID: 5235226283466116015, guid: e3cc36180cc70ae4e95776f0b26d9e1c, type: 3}
+      propertyPath: m_UseGeometry
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -599,7 +645,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5422784850909841755, guid: ed57b0e74d764ee4abdd4ee79a0b0f3c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 946089572}
+    - targetCorrespondingSourceObject: {fileID: 5422784850909841755, guid: ed57b0e74d764ee4abdd4ee79a0b0f3c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 946089575}
   m_SourcePrefab: {fileID: 100100000, guid: ed57b0e74d764ee4abdd4ee79a0b0f3c, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
